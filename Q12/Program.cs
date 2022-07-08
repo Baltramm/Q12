@@ -1,19 +1,21 @@
 ﻿using System;
-
+using System.IO;
 namespace Q12
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Сколько элементов будет в массиве?");
-            int count = Convert.ToInt32(Console.ReadLine());
-            var array = new int[count];
-            for (int i= 0;i<count;i++)
-            {
-                array[i] = Convert.ToInt32(Console.ReadLine());
-            }
-            Console.WriteLine("Все элементы записаны");
+            // читаем весь файл с рабочего стола в строку текста
+            string text = File.ReadAllText("C:\\Users\\Eugene\\Desktop\\Text.txt");
+
+            // Сохраняем символы-разделители в массив
+            char[] delimiters = new char[] { ' ', '\r', '\n' };
+
+            // разбиваем нашу строку текста, используя ранее перечисленные символы-разделители
+            var words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            // выводим количество
+            Console.WriteLine(words.Length);
         }
     }
 }
