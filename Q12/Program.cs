@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections;
+using System.Text;
 
 namespace Q12
 {
@@ -8,29 +9,41 @@ namespace Q12
     {
         static void Main(string[] args)
         {
-            var months = new[]
+            var arrayList = new ArrayList()
+           {
+               1,
+               "Андрей ",
+               "Сергей ",
+               300,
+           };
+            int sum = 0;
+            StringBuilder text = new StringBuilder();
+            foreach (var element in arrayList)
             {
-              "Jan", "Feb", "Mar", "Apr", "May" , "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-            };
+                //   если целое число - увеличиваем счётчик
+                if (element is int)
+                {
+                    sum += (int)element;
+                }
 
-            var numbers = new[]
-            {
-              1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12
-            };
-            var arraylist = new ArrayList();
-
-            foreach (var number in numbers)
-            {
-                // добавляем в ArrayList строку месяца (начинаем с нулевого по индексу)
-                arraylist.Add(months[number - 1]);
-
-                // добавляем его порядковый номер
-                arraylist.Add(number);
+                // если строка - добавляем текст из неё
+                if (element is string s)
+                {
+                    text.Append(element);
+                }
             }
 
-            foreach (var value in arraylist)
-                Console.WriteLine(value);
+            // результат
+            var result = new ArrayList() { sum, text.ToString() };
+
+            // вывод
+            foreach (var elem in result)
+            {
+                Console.WriteLine(elem);
+            }
         }
+
+       
 
     }
 }
