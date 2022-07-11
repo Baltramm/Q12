@@ -3,43 +3,48 @@ using System.IO;
 using System.Collections;
 using System.Text;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Q12
 {
     class Program
     {
+        public static Stack<string> words = new Stack<string>();
+
         static void Main(string[] args)
         {
+            Console.WriteLine("Введите слово и нажмите Enter, чтобы добавить его в стек.");
+            Console.WriteLine();
 
-
-            var sentence =
-    "Подсчитайте, сколько уникальных символов в этом предложении, используя HashSet<T>, учитывая знаки препинания, но не учитывая пробелы в начале и в конце предложения.";
-            // сохраняем в массив char
-            var characters = sentence.ToCharArray();
-
-            var symbols = new HashSet<char>();
-
-            var signs = new[] { ',', ' ', '.' };
-
-            // сохраняем числовые символы в массив Char
-            var numbers = new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-
-
-            // добавляем во множество. Сохраняются только неповторяющиеся символы
-            foreach (var symbol in characters)
+            while (true)
             {
-                
-                symbols.Add(symbol);
+                var input = Console.ReadLine();
+                switch (input)
+                {
+                    //   если  команда pop - пробуем достать элемент
+                    case "pop":
+                        words.TryPop(out string popResult);
+                        break;
+                    //   если  команда peek - пробуем  просмотреть элемент
+                    case "peek":
+                        words.TryPeek(out string peekResult);
+                        break;
+                    default:
+                        // если ни одна из команд не распознана - простов стек добавляем то что введено
+                        words.Push(input);
+                        break;
+                }
+              
+
+
+                Console.WriteLine();
+                Console.WriteLine("В стеке:");
+
+                foreach (var word in words)
+                {
+                    Console.WriteLine(" " + word);
+                }
             }
-            bool containsNumbers = symbols.Overlaps(numbers);
-            Console.WriteLine($"Коллекция содержит цифры: {containsNumbers}");
-
-            // Отбрасываем знаки препинания и заново считаем
-            symbols.ExceptWith(signs);
-            Console.WriteLine($"Символов без знаков препинания:: {symbols.Count}");
-            // Выводим результат
-            Console.WriteLine(symbols.Count);
-
         }
     }
 }
